@@ -1,0 +1,22 @@
+:root {
+    --tamanhoBorda: 4px;
+    --corBorda: rgba(0, 0, 0, 0.718);
+    --corTransparenteBorda: rgba(128, 128, 128, 0.305);
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border-top: var(--tamanhoBorda) solid var(--corBorda);
+    border-left: var(--tamanhoBorda) solid var(--corTransparenteBorda);
+    border-right: var(--tamanhoBorda) solid var(--corTransparenteBorda);
+    border-bottom: var(--tamanhoBorda) solid var(--corTransparenteBorda);
+    border-radius: 100%;
+    animation: rotate 0.8s infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
