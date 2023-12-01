@@ -5,6 +5,8 @@ import Spinner from '../components/spinner/Spinner'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
+import Tabela from '../components/Tabela/Tabela';
+
 function App() {
   const { data, isLoading } = useQuery({
     queryKey: ["dados"],
@@ -17,39 +19,17 @@ function App() {
 
   const dados = data.data
 
+  function returnArrayChunks(arrayParam, quantPedacos) {
+    const arrayComVariosPedacos = []
+    for (let i = 0; i < arrayParam.length; i += quantPedacos) {
+      arrayComVariosPedacos.push(arrayParam.slice(i, i + quantPedacos))
+    }
+    return arrayComVariosPedacos
+  }
+  const conjuntoDeDados = returnArrayChunks(dados, 100)
+
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Id do Município</th>
-          <th>Nome do Município</th>
-          <th>Id da Região Imediata</th>
-          <th>Nome da Região Imediata</th>
-          <th>Nome da Região Intermediária</th>
-          <th>UF sigla</th>
-          <th>UF nome</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {
-          dados.map((item) => {
-            return (
-              <tr key={item.id}>
-                <td>{item["municipio-id"]}</td>
-                <td>{item["municipio-nome"]}</td>
-                <td>{item["regiao-imediata-id"]}</td>
-                <td>{item["regiao-imediata-nome"]}</td>
-                <td>{item["regiao-intermediaria-nome"]}</td>
-                <td>{item["UF-sigla"]}</td>
-                <td>{item["UF-nome"]}</td>
-              </tr>
-            )
-          })
-        }
-
-      </tbody>
-    </table>
+    <Tabela dados={conjuntoDeDados} />
   )
 }
 
